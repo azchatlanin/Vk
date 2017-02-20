@@ -75,3 +75,30 @@
     vk.frendsName
     vk.frendsId
 ```  
+#### Друзья
+##### Получение списка друзей
+```c++
+   void getFriends(const int &count, const int &start);
+```  
+count - кол-во получаемых друзей
+start - с какого начинать получать
+
+пример
+```php
+   vk.getFriends(30, 1)
+``` 
+Будет получено 30 друзей начная с первого
+
+##### Отправка сообщения
+```c++
+   void sendMessage(const QString &frendId, const QString &message);
+``` 
+frendId - id друга, получаем из vk.frendsId
+message - само сообщение, получаем из головы:)
+
+пример
+
+```php
+   property var frendId: vk.frendsId[123]
+   vk.sendMessage(frendId, "Привет, отвечать не нужно!");
+``` 
