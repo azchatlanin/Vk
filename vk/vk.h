@@ -68,15 +68,14 @@ private:
 
 private:
     void userData();
+    void networkRequest(QUrl &url, QByteArray &reqdata);
 
 signals:
     void userDataChange();
     void fendsDataChange();
 
 private slots:
-    void friendsResult(QNetworkReply *reply);
-    void userDataResult(QNetworkReply *reply);
-    void messageResult(QNetworkReply *reply);
+    void networkRequestResult(QNetworkReply *reply);
 };
 
 #endif // VK_H
