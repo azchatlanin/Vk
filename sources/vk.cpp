@@ -1,7 +1,5 @@
 #include "vk.h"
 
-/*Конструктор прнимает на вход id приложения ВК
-  его надо полчить при регистрации этого приложения в сети*/
 Vk::Vk(QString &app)
 {
     QString strUrl = QString("https://oauth.vk.com/authorize"
@@ -53,9 +51,6 @@ QStringList Vk::frendsName() const
     return m_frendsName;
 }
 
-
-/*Метод подключения к аккаунту юзера
-  вызывается в WebView (QML)*/
 QUrl Vk::url() const
 {
     return m_url;
@@ -66,23 +61,16 @@ QUrl Vk::listening() const
     return m_listenUrl;
 }
 
-/*Метод, который работает при смене URL, т.е. когда получен ответ
-  от соц.сети с данными пользователя. Срабатывает в webView*/
 void Vk::setListening(const QUrl &listenUrl)
 {
-    /*Очищаем url от неверных символов и заменяем на нужные*/
     QUrl url(listenUrl);
-    url = url.toString().replace("#", "?");
-    /*Передаем url для выдергивания из него нужных запросов*/
-    QUrlQuery query(url);
-    /*Получаем токен и почту юзера*/
+    url = url.toString().replace("#", "?");    
+    QUrlQuery query(url);   
     m_token = query.queryItemValue("access_token");
-    m_mail =  query.queryItemValue("email");
-    /*Получение данных авторизованного юзера*/
+    m_mail =  query.queryItemValue("email");    
     userData();
 }
 
-/*Получение данных авторизованного юзера*/
 void Vk::userData()
 {
     QNetworkRequest request;
@@ -125,7 +113,6 @@ void Vk::userDataResult(QNetworkReply *reply)
     reply->deleteLater();
 }
 
-/*Получение друзей авторизованного юзера*/
 void Vk::getFriends(const int &count, const int &start)
 {
     QUrl url("https://api.vk.com/method/friends.get?v=5.60");
@@ -150,7 +137,6 @@ void Vk::getFriends(const int &count, const int &start)
     connect(manager, &QNetworkAccessManager::finished, manager, &QNetworkAccessManager::deleteLater);
 }
 
-/*Вывод результатов о друзьях*/
 void Vk::friendsResult(QNetworkReply *reply)
 {
     QString result = (QString)reply->readAll();
