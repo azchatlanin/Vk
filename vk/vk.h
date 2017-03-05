@@ -28,9 +28,9 @@ class Vk: public QObject
     Q_PROPERTY(QString id READ id NOTIFY userDataChange)
     Q_PROPERTY(QString photo READ photo NOTIFY userDataChange)
 
-    Q_PROPERTY(QStringList frendsPhoto READ frendsPhoto NOTIFY fendsDataChange)
-    Q_PROPERTY(QStringList frendsId READ frendsId NOTIFY fendsDataChange)
-    Q_PROPERTY(QStringList frendsName READ frendsName NOTIFY fendsDataChange)
+    Q_PROPERTY(QStringList frendsPhoto READ frendsPhoto NOTIFY friendsDataChange)
+    Q_PROPERTY(QStringList frendsId READ frendsId NOTIFY friendsDataChange)
+    Q_PROPERTY(QStringList frendsName READ frendsName NOTIFY friendsDataChange)
 
 public:
     explicit Vk(const QString &app);
@@ -72,7 +72,8 @@ private:
 
 signals:
     void userDataChange();
-    void fendsDataChange();
+    void friendsDataChange();
+    void readyData();
 
 private slots:
     void networkRequestResult(QNetworkReply *reply);

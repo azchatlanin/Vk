@@ -144,7 +144,7 @@ void Vk::networkRequestResult(QNetworkReply *reply)
                 m_frendsPhoto.append(subtree.value("photo_100").toString());
             }
         }
-        emit fendsDataChange();
+        emit friendsDataChange();
     } else {
         QJsonValue items = root.value("response");
         QJsonArray ja = items.toArray();
@@ -155,6 +155,9 @@ void Vk::networkRequestResult(QNetworkReply *reply)
             m_id = QString::number(subtree.value("id").toInt());
             m_photo =  subtree.value("photo_100").toString();
         }
+        qWarning() << "m_name = " << m_name;
+        qWarning() << "m_id = " << m_id;
+        qWarning() << "m_photo = " << m_photo;
         emit userDataChange();
     }
     reply->deleteLater();
