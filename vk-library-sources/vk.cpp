@@ -144,7 +144,12 @@ void Vk::networkRequestResult(QNetworkReply *reply)
                 m_frendsPhoto.append(subtree.value("photo_100").toString());
             }
         }
-        emit friendsDataChange();
+        if(!m_frendsName.isEmpty() && !m_frendsId.isEmpty() && !m_frendsPhoto.isEmpty()) {
+            qWarning() << "m_frendsName = " << m_frendsName;
+            qWarning() << "m_frendsId = " << m_frendsId;
+            qWarning() << "m_frendsPhoto = " << m_frendsPhoto;
+            emit friendsDataReady();
+        }
     } else {
         QJsonValue items = root.value("response");
         QJsonArray ja = items.toArray();
@@ -155,10 +160,12 @@ void Vk::networkRequestResult(QNetworkReply *reply)
             m_id = QString::number(subtree.value("id").toInt());
             m_photo =  subtree.value("photo_100").toString();
         }
-        qWarning() << "m_name = " << m_name;
-        qWarning() << "m_id = " << m_id;
-        qWarning() << "m_photo = " << m_photo;
-        emit userDataChange();
+        if(!m_name.isEmpty() && !m_id.isEmpty() && !m_photo.isEmpty()) {
+            qWarning() << "m_name = " << m_name;
+            qWarning() << "m_id = " << m_id;
+            qWarning() << "m_photo = " << m_photo;
+            emit userDataReady();
+        }
     }
     reply->deleteLater();
 }

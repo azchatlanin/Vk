@@ -35,5 +35,4 @@ Makefile*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
-./vk-Desctop
-/vk-Desktop/
+/vk-library-Android_5_7_1/

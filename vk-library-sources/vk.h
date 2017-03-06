@@ -22,15 +22,15 @@ class Vk: public QObject
     Q_PROPERTY(QUrl url READ url CONSTANT)
     Q_PROPERTY(QUrl listening READ listening WRITE setListening)
 
-    Q_PROPERTY(QString mail READ mail NOTIFY userDataChange)
-    Q_PROPERTY(QString token READ token NOTIFY userDataChange)
-    Q_PROPERTY(QString name READ name NOTIFY userDataChange)
-    Q_PROPERTY(QString id READ id NOTIFY userDataChange)
-    Q_PROPERTY(QString photo READ photo NOTIFY userDataChange)
+    Q_PROPERTY(QString mail READ mail NOTIFY userDataReady)
+    Q_PROPERTY(QString token READ token NOTIFY userDataReady)
+    Q_PROPERTY(QString name READ name NOTIFY userDataReady)
+    Q_PROPERTY(QString id READ id NOTIFY userDataReady)
+    Q_PROPERTY(QString photo READ photo NOTIFY userDataReady)
 
-    Q_PROPERTY(QStringList frendsPhoto READ frendsPhoto NOTIFY friendsDataChange)
-    Q_PROPERTY(QStringList frendsId READ frendsId NOTIFY friendsDataChange)
-    Q_PROPERTY(QStringList frendsName READ frendsName NOTIFY friendsDataChange)
+    Q_PROPERTY(QStringList frendsPhoto READ frendsPhoto NOTIFY friendsDataReady)
+    Q_PROPERTY(QStringList frendsId READ frendsId NOTIFY friendsDataReady)
+    Q_PROPERTY(QStringList frendsName READ frendsName NOTIFY friendsDataReady)
 
 public:
     explicit Vk(const QString &app);
@@ -71,9 +71,8 @@ private:
     void networkRequest(QUrl &url, QByteArray &reqdata);
 
 signals:
-    void userDataChange();
-    void friendsDataChange();
-    void readyData();
+    void userDataReady();
+    void friendsDataReady();
 
 private slots:
     void networkRequestResult(QNetworkReply *reply);
